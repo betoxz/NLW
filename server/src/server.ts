@@ -1,23 +1,16 @@
 import express from 'express';
+import routes from './routes'
+import path from 'path';
+import cors from 'cors';
 
 const app = express();
 
-app.get('/users', (request, response) => {
-    console.log('listagem de usuários')
+app.use(cors);
 
-    //envia html
-    //response.send('<b>Lista de Usuários</b>')
+app.use(express.json());
 
-    //envia imagem, caminho fisico
-    //response.sendFile('C:/Users/betov/Desktop/Curso NLW/server/src/uploads/baterias.svg')
+app.use(routes);
 
-    //envia json
-    response.json([
-        'Carlos',
-        'Alberto',
-        'Martins',
-        'Silva'
-    ])
-});
+app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
 
 app.listen(3333);
